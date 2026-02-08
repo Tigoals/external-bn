@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SafeLink Berita Nasional | Pengalihan Aman</title>
+
+<meta name="description" content="Halaman SafeLink untuk mengalihkan pengguna secara aman menuju konten berita nasional terpercaya di Indonesia.">
+
+<meta name="robots" content="noindex, follow">
+
+<link rel="canonical" href="https://external.beritanasional.eu.org/">
+
+<meta name="theme-color" content="#0f172a">
+
+<style>
+body{
+font-family:Arial;
+background:#f4f6f9;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+flex-direction:column;
+}
+
+.card{
+background:#fff;
+padding:28px;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+max-width:420px;
+text-align:center;
+}
+
+.btn{
+display:inline-block;
+background:#0078ff;
+color:#fff;
+padding:12px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+margin-top:15px;
+}
+
+.ad-box{
+margin:20px 0;
+text-align:center;
+font-size:12px;
+color:#888;
+}
+
+.domain{
+filter:blur(4px);
+}
+.domain:hover{
+filter:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Menuju Link Tujuan Aman</h1>
+
+<p>
+SafeLink digunakan untuk memastikan tautan eksternal lebih aman sebelum dibuka.
+Pastikan Anda hanya melanjutkan ke situs terpercaya.
+</p>
+
+<!-- AREA IKLAN -->
+<div class="ad-box">
+Iklan
+<br>
+<!-- PASANG SCRIPT ADSENSE DI SINI -->
+</div>
+
+<p id="preview">🔗 <span class="domain">Memuat...</span></p>
+
+<a id="visitBtn" href="#" class="btn" target="_blank" rel="nofollow noopener sponsored">
+Kunjungi Sekarang
+</a>
+
+</div>
+
+<script>
+const urlParams=new URLSearchParams(location.search);
+const encoded=urlParams.get("url");
+
+if(encoded){
+try{
+const decoded=atob(encoded);
+const urlObj=new URL(decoded);
+
+document.getElementById("visitBtn").href=decoded;
+document.querySelector(".domain").textContent=urlObj.hostname;
+
+}catch(e){
+document.querySelector(".card").innerHTML="<h1>Link tidak valid</h1>";
+}
+}else{
+document.querySelector(".card").innerHTML="<h1>Parameter URL tidak ditemukan</h1>";
+}
+</script>
+
+</body>
+</html>
