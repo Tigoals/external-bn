@@ -14,7 +14,7 @@
 <link rel="canonical" href="https://external.beritanasional.eu.org/">
 
 <meta name="theme-color" content="#0f172a">
-
+<meta name="monetag" content="7ac6e285f325112d2b165132c73e9a72">
 <style>
 body{
 font-family:Arial;
@@ -27,6 +27,7 @@ min-height:100vh;
 flex-direction:column;
 }
 
+/* card */
 .card{
 background:#fff;
 padding:28px;
@@ -60,6 +61,136 @@ filter:blur(4px);
 .domain:hover{
 filter:none;
 }
+
+/* ===== LIVE ADS PRO ===== */
+
+.live-pro{
+position:fixed;
+right:20px;
+bottom:20px;
+width:320px;
+z-index:9999;
+display:none;
+}
+
+.player-box{
+background:#000;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+
+.player-header{
+background:#111;
+color:#fff;
+padding:8px;
+font-size:12px;
+display:flex;
+gap:6px;
+font-weight:bold;
+}
+
+.player-label{
+margin-left:auto;
+color:#aaa;
+}
+
+.live-dot{
+width:8px;
+height:8px;
+background:red;
+border-radius:50%;
+animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:1}
+50%{opacity:.4}
+100%{opacity:1}
+}
+
+.player-video{
+position:relative;
+padding-top:56.25%;
+}
+
+.fake-video{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#111;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:#fff;
+}
+
+.play-btn{
+width:55px;
+height:55px;
+background:red;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+margin-bottom:8px;
+}
+
+.buffering{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:13px;
+}
+
+.spinner{
+width:26px;
+height:26px;
+border:3px solid rgba(255,255,255,.2);
+border-top:3px solid #fff;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-bottom:8px;
+}
+
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+.overlay{
+position:absolute;
+bottom:10px;
+left:10px;
+color:#fff;
+font-size:12px;
+}
+
+.stats{
+margin-top:4px;
+display:flex;
+gap:8px;
+}
+
+.click-layer{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:5;
+}
 </style>
 </head>
 
@@ -74,11 +205,10 @@ SafeLink digunakan untuk memastikan tautan eksternal lebih aman sebelum dibuka.
 Pastikan Anda hanya melanjutkan ke situs terpercaya.
 </p>
 
-<!-- AREA IKLAN -->
 <div class="ad-box">
 Iklan
 <br>
-<!-- PASANG SCRIPT ADSENSE DI SINI -->
+<!-- PASANG ADSENSE DISINI -->
 </div>
 
 <p id="preview">🔗 <span class="domain">Memuat...</span></p>
@@ -89,7 +219,44 @@ Kunjungi Sekarang
 
 </div>
 
+<!-- LIVE ADS PRO -->
+<div id="liveProAds" class="live-pro">
+<div class="player-box">
+
+<div class="player-header">
+<span class="live-dot"></span> LIVE
+<span class="player-label">IKLAN</span>
+</div>
+
+<div class="player-video">
+
+<div class="fake-video">
+<div class="play-btn">▶</div>
+<div>Live Match Player</div>
+</div>
+
+<div class="buffering">
+<div class="spinner"></div>
+Menyiapkan Player...
+</div>
+
+<div class="overlay">
+<div id="kickoff">Kickoff 00:00</div>
+<div class="stats">
+<span>⚽ 0 - 0</span>
+<span>⏱ 00'</span>
+</div>
+</div>
+
+<a id="adsClickLayer" href="#" target="_blank" rel="noopener sponsored" class="click-layer"></a>
+
+</div>
+</div>
+</div>
+
 <script>
+
+// safelink decode
 const urlParams=new URLSearchParams(location.search);
 const encoded=urlParams.get("url");
 
@@ -99,6 +266,8 @@ const decoded=atob(encoded);
 const urlObj=new URL(decoded);
 
 document.getElementById("visitBtn").href=decoded;
+document.getElementById("adsClickLayer").href=decoded;
+
 document.querySelector(".domain").textContent=urlObj.hostname;
 
 }catch(e){
@@ -107,6 +276,43 @@ document.querySelector(".card").innerHTML="<h1>Link tidak valid</h1>";
 }else{
 document.querySelector(".card").innerHTML="<h1>Parameter URL tidak ditemukan</h1>";
 }
+
+// tampil saat scroll 30%
+window.addEventListener("scroll",()=>{
+let percent=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+
+if(percent>30){
+document.getElementById("liveProAds").style.display="block";
+startFakePlayer();
+}
+});
+
+let started=false;
+
+function startFakePlayer(){
+if(started)return;
+started=true;
+
+setTimeout(()=>{
+document.querySelector(".buffering").style.display="none";
+},2500);
+}
+
+// countdown kickoff
+let sec=900;
+
+setInterval(()=>{
+if(sec<=0)return;
+sec--;
+
+let m=Math.floor(sec/60);
+let s=sec%60;
+
+document.getElementById("kickoff").innerText=
+"Kickoff "+m+":"+String(s).padStart(2,'0');
+
+},1000);
+
 </script>
 
 </body>
