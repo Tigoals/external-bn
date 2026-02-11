@@ -172,6 +172,51 @@ position:absolute;
 inset:0;
 z-index:5;
 }
+  .close-ads{
+position:absolute;
+top:6px;
+right:6px;
+background:rgba(0,0,0,.6);
+color:#fff;
+border:none;
+width:26px;
+height:26px;
+border-radius:50%;
+cursor:pointer;
+font-size:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:20;
+}
+
+.close-ads:hover{
+background:red;
+}
+.info-box{
+background:#f1f5f9;
+padding:14px;
+border-radius:10px;
+margin:15px 0;
+text-align:left;
+font-size:14px;
+}
+
+.info-box ul{
+padding-left:18px;
+margin:6px 0 0 0;
+}
+
+.info-box li{
+margin:4px 0;
+}
+
+.disclaimer{
+font-size:12px;
+color:#777;
+margin-top:14px;
+}
+
 </style>
 </head>
 
@@ -179,29 +224,67 @@ z-index:5;
 
 <div class="card">
 
-<h1>Menuju Link Tujuan Aman</h1>
+<h1>🔐 Menuju Link Tujuan Aman</h1>
 
 <p>
-SafeLink digunakan untuk memastikan tautan eksternal lebih aman sebelum dibuka.
-Pastikan Anda hanya melanjutkan ke situs terpercaya.
+Anda akan dialihkan menuju halaman eksternal melalui sistem SafeLink.
+Fitur ini dirancang untuk membantu melindungi pengunjung dari tautan berbahaya,
+phishing, malware, serta situs yang tidak terpercaya.
+</p>
+
+<p>
+Sebelum melanjutkan, pastikan Anda memahami bahwa situs tujuan berada di luar
+kendali kami. Selalu periksa alamat domain, gunakan koneksi internet yang aman,
+dan hindari memasukkan data pribadi jika Anda merasa ragu terhadap keamanan situs tersebut.
+</p>
+
+<p>
+SafeLink juga membantu meningkatkan keamanan pengalaman browsing dengan cara
+menyaring tautan mencurigakan serta memberikan waktu bagi pengguna untuk
+mengecek kembali tujuan link sebelum membuka halaman selanjutnya.
 </p>
 
 <div class="ad-box">
-Iklan
+<span>📢 Konten Sponsor</span>
 <br>
 </div>
 
-<p id="preview">🔗 <span class="domain">Memuat...</span></p>
+<div class="info-box">
+<p><strong>Tips Aman Sebelum Melanjutkan</strong></p>
+<ul>
+<li>✔ Pastikan domain terlihat jelas dan benar</li>
+<li>✔ Hindari login jika situs terasa mencurigakan</li>
+<li>✔ Gunakan browser versi terbaru</li>
+<li>✔ Jangan download file dari sumber tidak dikenal</li>
+</ul>
+</div>
 
-<a id="visitBtn" href="#" class="btn" target="_blank" rel="nofollow noopener sponsored">
-Kunjungi Sekarang
+<p id="preview">
+🔗 Tujuan Link
+<br>
+<span class="domain">Memuat...</span>
+</p>
+
+<a id="visitBtn"
+href="#"
+class="btn"
+target="_blank"
+rel="nofollow noopener sponsored">
+
+🚀 Lanjutkan ke Situs Tujuan
+
 </a>
+
+<p class="disclaimer">
+Dengan melanjutkan, Anda memahami bahwa Anda akan meninggalkan halaman ini
+dan membuka situs eksternal sesuai kebijakan masing masing penyedia konten.
+</p>
 
 </div>
 
 <div id="liveProAds" class="live-pro">
 <div class="player-box">
-
+<button id="closeAds" class="close-ads">✕</button>
 <div class="player-header">
 <span class="live-dot"></span> LIVE
 <span class="player-label">IKLAN</span>
@@ -295,6 +378,13 @@ setInterval(()=>{
   "Kickoff "+m+":"+String(s).padStart(2,'0');
 
 },1000);
+if(closeAds && liveAds){
+  closeAds.onclick = ()=>{
+    liveAds.style.opacity="0";
+    liveAds.style.transform="scale(.9)";
+    setTimeout(()=> liveAds.style.display="none",200);
+  };
+}
 
 </script>
 
