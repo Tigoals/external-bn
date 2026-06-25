@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Secure SafeLink Redirect</title>
+
+<meta name="description" content="Secure redirect system to safely navigate users to external links.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#020617">
+
+<link rel="dns-prefetch" href="https://external.beritanasional.eu.org">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/score808pages/football808@main/image/livescore%20808.png">
+
+<!-- MGID -->
+<script src="https://jsc.mgid.com/site/829703.js" async></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:'Segoe UI',system-ui,sans-serif;
+background:radial-gradient(circle at top,#1e3a8a,#020617);
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+color:#fff;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(16px);
+border:1px solid rgba(255,255,255,0.1);
+width:100%;
+max-width:420px;
+border-radius:20px;
+padding:28px;
+box-shadow:0 20px 80px rgba(0,0,0,.6);
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+/* GLOW */
+.card::before{
+content:"";
+position:absolute;
+width:200px;
+height:200px;
+background:radial-gradient(circle,#3b82f6,transparent);
+top:-50px;
+right:-50px;
+opacity:.4;
+}
+
+/* TEXT */
+.title{
+font-size:20px;
+font-weight:800;
+margin-bottom:6px;
+}
+
+.small{
+font-size:13px;
+color:#cbd5f5;
+}
+
+/* LOADER */
+.loader{
+width:60px;
+height:60px;
+border-radius:50%;
+border:4px solid rgba(255,255,255,.2);
+border-top:4px solid #60a5fa;
+animation:spin .9s linear infinite;
+margin:22px auto;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+/* PROGRESS */
+.progress{
+height:6px;
+background:rgba(255,255,255,.1);
+border-radius:20px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#3b82f6,#22d3ee);
+transition:width .4s ease;
+}
+
+/* DOMAIN */
+.domain{
+font-size:13px;
+color:#93c5fd;
+margin-top:10px;
+word-break:break-all;
+}
+
+/* BUTTON */
+.btn{
+display:block;
+margin-top:18px;
+padding:14px;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+color:#fff;
+border-radius:12px;
+text-decoration:none;
+font-weight:700;
+opacity:.4;
+pointer-events:none;
+transition:.3s;
+}
+
+.btn.active{
+opacity:1;
+pointer-events:auto;
+}
+
+/* COUNT */
+.count{
+font-weight:800;
+color:#60a5fa;
+}
+
+/* ADS */
+.ads{
+min-height:250px; /* anti CLS */
+/* background:rgba(255,255,255,.05);*/
+  background:#fff;
+border:1px dashed rgba(255,255,255,.1);
+border-radius:10px;
+margin:12px 0;
+}
+  .btn{
+position:relative;
+overflow:hidden;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+box-shadow:0 0 0 0 rgba(59,130,246,.7);
+}
+
+70%{
+transform:scale(1.05);
+box-shadow:0 0 0 20px rgba(59,130,246,0);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+@keyframes ripple{
+
+to{
+transform:scale(4);
+opacity:0;
+}
+
+}
+
+@keyframes fall{
+
+to{
+transform:translateY(110vh) rotate(720deg);
+opacity:0;
+}
+
+}
+  .btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.btn-icon{
+width:20px;
+height:20px;
+flex-shrink:0;
+transition:.3s;
+}
+
+.btn.active .btn-icon{
+animation:unlock 1.2s infinite;
+}
+
+@keyframes unlock{
+0%,100%{
+transform:rotate(0deg);
+}
+20%{
+transform:rotate(-15deg);
+}
+40%{
+transform:rotate(15deg);
+}
+60%{
+transform:rotate(-10deg);
+}
+80%{
+transform:rotate(10deg);
+}
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+<!-- ADS TOP -->
+<div class="ads">
+<div data-type="_mgwidget" data-widget-id="1878065"></div>
+<script>(function(w,q){w[q]=w[q]||[];w[q].push(["_mgc.load"]) })(window,"_mgq");</script>
+</div>
+
+<div class="title">🔐 Secure Redirect</div>
+
+<div class="small">
+You are being safely redirected...
+</div>
+
+<div class="loader"></div>
+
+<div class="progress">
+<div class="progress-bar" id="bar"></div>
+</div>
+
+<div class="domain" id="domain">Loading link...</div>
+
+<a id="btn" class="btn" target="_blank" rel="nofollow">
+<svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+  <path d="M17 9V7a5 5 0 0 0-10 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <rect x="4" y="9" width="16" height="11" rx="3" stroke="currentColor" stroke-width="2"/>
+  <circle cx="12" cy="14" r="1.5" fill="currentColor"/>
+  <path d="M12 15.5V17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+<span>Open Secure Link</span>
+</a>
+
+<div class="small">
+Redirect in <span class="count" id="count">10</span>s
+</div>
+
+<!-- ADS BOTTOM -->
+<div class="ads">
+<div data-type="_mgwidget" data-widget-id="1882211"></div>
+<script>(function(w,q){w[q]=w[q]||[];w[q].push(["_mgc.load"]) })(window,"_mgq");</script>
+</div>
+</div>
+<script>
+const REDIRECT_TIME = 15;
+
+const params = new URLSearchParams(location.search);
+const encoded = params.get("url");
+
+const btn = document.getElementById("btn");
+const bar = document.getElementById("bar");
+const countEl = document.getElementById("count");
+const domainEl = document.getElementById("domain");
+
+let targetUrl = null;
+let unlocked = false;
+
+try{
+
+if(!encoded) throw new Error();
+
+targetUrl = atob(encoded);
+
+const u = new URL(targetUrl);
+
+domainEl.innerHTML = `
+🔒 Secure Domain<br>
+<b>${u.hostname}</b>
+`;
+
+btn.href = targetUrl;
+
+}catch{
+
+document.querySelector(".card").innerHTML = `
+<h2>❌ Invalid Link</h2>
+<p>Redirect URL not found.</p>
+`;
+
+}
+
+/* COUNTDOWN */
+
+let time = REDIRECT_TIME;
+
+const timer = setInterval(()=>{
+
+time--;
+
+countEl.textContent = time;
+
+const percent =
+((REDIRECT_TIME - time) / REDIRECT_TIME) * 100;
+
+bar.style.width = percent + "%";
+
+if(time <= 0){
+
+clearInterval(timer);
+
+unlockButton();
+
+}
+
+},1000);
+
+/* UNLOCK BUTTON */
+
+function unlockButton(){
+
+unlocked = true;
+
+btn.classList.add("active");
+
+btn.innerHTML = `
+<svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+  <path d="M7 11V7a5 5 0 0 1 10 0"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"/>
+  <rect x="4" y="11" width="16" height="9" rx="3"
+        stroke="currentColor"
+        stroke-width="2"/>
+  <path d="M12 14v3"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"/>
+</svg>
+<span>Open Secure Link</span>
+`;
+
+btn.style.animation =
+"pulse 1.2s infinite";
+
+btn.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+createConfetti();
+
+}
+
+/* CLICK ACTION */
+
+btn.addEventListener("click",(e)=>{
+
+if(!unlocked){
+
+e.preventDefault();
+return;
+
+}
+
+btn.innerHTML="⏳ Opening...";
+
+btn.style.pointerEvents="none";
+
+createRipple(e);
+
+setTimeout(()=>{
+
+window.location.href = targetUrl;
+
+},700);
+
+});
+
+/* RIPPLE EFFECT */
+
+function createRipple(e){
+
+const ripple =
+document.createElement("span");
+
+const rect =
+btn.getBoundingClientRect();
+
+const size =
+Math.max(rect.width,rect.height);
+
+ripple.style.cssText=`
+position:absolute;
+width:${size}px;
+height:${size}px;
+left:${e.clientX-rect.left-size/2}px;
+top:${e.clientY-rect.top-size/2}px;
+background:rgba(255,255,255,.5);
+border-radius:50%;
+transform:scale(0);
+animation:ripple .6s linear;
+pointer-events:none;
+`;
+
+btn.appendChild(ripple);
+
+setTimeout(()=>{
+ripple.remove();
+},600);
+
+}
+
+/* CONFETTI */
+
+function createConfetti(){
+
+for(let i=0;i<30;i++){
+
+const c =
+document.createElement("div");
+
+c.style.cssText=`
+position:fixed;
+left:${Math.random()*100}vw;
+top:-20px;
+width:8px;
+height:8px;
+background:hsl(${Math.random()*360}deg 100% 60%);
+z-index:9999;
+border-radius:50%;
+animation:fall ${2+Math.random()*2}s linear forwards;
+`;
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.remove();
+},4000);
+
+}
+
+}
+</script>
+</body>
+</html>
